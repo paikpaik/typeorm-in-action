@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModel } from './entity/user.entity';
+import { StudentModel, TeacherModel } from './entity/person.entity';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { UserModel } from './entity/user.entity';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [UserModel],
+      entities: [UserModel, StudentModel, TeacherModel],
       synchronize: true,
     }),
   ],
