@@ -3,9 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModel } from './entity/user.entity';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([UserModel]),
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
@@ -17,7 +19,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [],
+      entities: [UserModel],
       synchronize: true,
     }),
   ],
