@@ -64,7 +64,12 @@ export class UserModel {
   additionalId: string;
 
   // 1:1 관계
-  @OneToOne(() => ProfileModel, (profile) => profile.user)
+  @OneToOne(() => ProfileModel, (profile) => profile.user, {
+    eager: true,
+    cascade: true,
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
   profile: ProfileModel;
 
   // 1:다 관계
@@ -168,4 +173,37 @@ export class UserModel {
 - JoinColumn이 필요없음.
 - id는 항상 ManyToOne쪽에서 가지고 있게 됨.
 - posts: PostMedel[]; 리스트로 타입지정하는거 잊지말기
+*/
+/*
+################################################
+############### Relation Options ###############
+################################################
+
+- OnoToOne, OneToMany, ManyToOne, ManyToMany 전부 옵션값 같음.
+
+{ eager: true }
+- find() 실행 할때마다 항상 같이 가져올 relation
+- relation으로 join을 안걸어줘도 항상 가져온다는 뜻임.
+- 기본값은 false임.
+
+{ cascade: true }
+- 저장할때 relation을 한번에 같이 저장 가능.
+- 따로따로 레포를 불러서 저장안해도 된다는 뜻임.
+- 기본값음 false임.
+
+{ nullable: false }
+- null이 가능한지
+- 기본값음 true임.
+- nullable: false는 cascade랑 쓰기 좋음.
+
+{ onDelete: no action }
+- 관계가 삭제됐을때 옵션을 정하는 것임.
+- 'ON ACTION' -> 아무것도 안함.
+- 'CASCADE' -> 참조하는 Row도 같이 삭제
+-              즉, profile 삭제하면 user도 삭제된다는 뜻.
+- 'SET NULL' -> 참조하는 Row에서 참조 id를 null로 변경
+-              즉, profile 삭제하면 user의 profile은 null임.
+- 'SET DEFAULT' -> 기본 세팅으로 설정 (테이블의 기본 세팅)
+- 'RESTRICT' -> 참조하고 있는 Row가 있는경우 참조당하는 Row 삭제 불가
+-              즉, user에 profile이 참조되고 있다면 삭제 못함.
 */
