@@ -3,12 +3,14 @@ import {
   CreateDateColumn,
   Entity,
   Generated,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   VersionColumn,
 } from 'typeorm';
 import { ProfileModel } from './profile.entity';
+import { PostMedel } from './post.entity';
 
 export enum Role {
   USER = 'user',
@@ -64,6 +66,10 @@ export class UserModel {
   // 1:1 관계
   @OneToOne(() => ProfileModel, (profile) => profile.user)
   profile: ProfileModel;
+
+  // 1:다 관계
+  @OneToMany(() => PostMedel, (post) => post.author)
+  posts: PostMedel[];
 }
 /*
 #################################################
@@ -152,4 +158,14 @@ export class UserModel {
 @JoinColumn()
 - ProfileModel에 있는 id를 ProfileModel에서 가지고 있겠다는 의미임.
 - UserModel이나 ProfileModel 둘 중 하나에서 가지고 있어야 함.
+*/
+/*
+#####################################################
+############### OneToMany Relationship ###############
+#####################################################
+
+@OneToMany(() => PostMedel, (post) => post.author)
+- JoinColumn이 필요없음.
+- id는 항상 ManyToOne쪽에서 가지고 있게 됨.
+- posts: PostMedel[]; 리스트로 타입지정하는거 잊지말기
 */
