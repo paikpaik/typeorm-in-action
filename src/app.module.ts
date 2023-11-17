@@ -13,11 +13,12 @@ import {
   SingleBaseModel,
 } from './entity/inheritance.entity';
 import { ProfileModel } from './entity/profile.entity';
-import { PostMedel } from './entity/post.entity';
+import { PostModel } from './entity/post.entity';
+import { TagModel } from './entity/tag.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserModel, ProfileModel, PostMedel]),
+    TypeOrmModule.forFeature([UserModel, ProfileModel, PostModel, TagModel]),
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
@@ -39,7 +40,8 @@ import { PostMedel } from './entity/post.entity';
         ComputerModel,
         AirplaneModel,
         ProfileModel,
-        PostMedel,
+        PostModel,
+        TagModel,
       ],
       synchronize: true,
     }),

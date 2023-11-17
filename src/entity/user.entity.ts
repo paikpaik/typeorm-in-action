@@ -10,7 +10,7 @@ import {
   VersionColumn,
 } from 'typeorm';
 import { ProfileModel } from './profile.entity';
-import { PostMedel } from './post.entity';
+import { PostModel } from './post.entity';
 
 export enum Role {
   USER = 'user',
@@ -68,8 +68,8 @@ export class UserModel {
   profile: ProfileModel;
 
   // 1:다 관계
-  @OneToMany(() => PostMedel, (post) => post.author)
-  posts: PostMedel[];
+  @OneToMany(() => PostModel, (post) => post.author)
+  posts: PostModel[];
 }
 /*
 #################################################
