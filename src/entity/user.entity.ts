@@ -15,7 +15,16 @@ export class UserModel {
   id: number;
 
   // 제목
-  @Column()
+  @Column({
+    type: 'varchar',
+    name: '_title',
+    length: 300,
+    nullable: true,
+    update: true,
+    select: false,
+    default: 'default value',
+    unique: false,
+  })
   title: string;
 
   // 데이터 생성 일자
@@ -35,6 +44,10 @@ export class UserModel {
   additionalId: string;
 }
 /*
+#################################################
+############### Column Annotation ###############
+################################################# 
+
 @PrimaryGeneratedColumn()
 - entity의 속성을 PK column으로 만들어줌.
 - 자동으로 number ID가 증가함.
@@ -67,4 +80,41 @@ export class UserModel {
 @Generated('increment')
 - PK는 아니지만 자동으로 1씩 증가하는 column임.
 - 옵션은 'increment', 'lowid', 'uuid' 3가지가 있음.
+*/
+/*
+###############################################
+############### Column Property ###############
+############################################### 
+
+@Column({ type: 'text' })
+- 데이터베이스에서 인지하는 Column 타입
+- 자동으로 유추되기 때문에 설정을 안해도 됨.
+
+@Column({ name: '_title' })
+- 데이터베이스 칼럼 이름
+- 프로퍼티 이름으로 자동 유추됨.
+
+@Column({ length: 300 })
+- 값의 max 길이
+- varchar type만 지정할 수 있음.
+- 입력 할 수 있는 글자의 길이가 300
+
+@Column({ nullable: false })
+- null이 가능한지
+
+@Column({ update: true })
+- true면 처음 지정할때만 값 지정 가능
+- 이후 값 변경 불가
+
+@Column({ select: false })
+- find()를 실행할때 기본으로 값을 불러올지
+- 기본값이 true
+
+@Column({ default: 'default value' })
+- 아무것도 입력 안했을 때, 기본으로 입력 되는 값
+
+@Column({ unique: false })
+- 기본값이 false
+- column중에서 유일무이한 값이 돼야 하는지
+- 보통 email에 넣어둠.
 */
