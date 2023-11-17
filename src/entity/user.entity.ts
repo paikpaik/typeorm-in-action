@@ -8,6 +8,11 @@ import {
   VersionColumn,
 } from 'typeorm';
 
+export enum Role {
+  USER = 'user',
+  ADMIN = 'admin',
+}
+
 @Entity()
 export class UserModel {
   // ID
@@ -26,6 +31,13 @@ export class UserModel {
     unique: false,
   })
   title: string;
+
+  @Column({
+    type: 'enum',
+    enum: Role,
+    default: Role.USER,
+  })
+  role: Role;
 
   // 데이터 생성 일자
   @CreateDateColumn()
