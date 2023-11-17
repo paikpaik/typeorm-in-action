@@ -5,6 +5,13 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModel } from './entity/user.entity';
 import { StudentModel, TeacherModel } from './entity/person.entity';
+import {
+  AirplaneModel,
+  BookModel,
+  CarModel,
+  ComputerModel,
+  SingleBaseModel,
+} from './entity/inheritance.entity';
 
 @Module({
   imports: [
@@ -20,7 +27,16 @@ import { StudentModel, TeacherModel } from './entity/person.entity';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [UserModel, StudentModel, TeacherModel],
+      entities: [
+        UserModel,
+        StudentModel,
+        TeacherModel,
+        BookModel,
+        CarModel,
+        SingleBaseModel,
+        ComputerModel,
+        AirplaneModel,
+      ],
       synchronize: true,
     }),
   ],
