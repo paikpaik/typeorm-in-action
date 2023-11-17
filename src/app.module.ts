@@ -12,10 +12,11 @@ import {
   ComputerModel,
   SingleBaseModel,
 } from './entity/inheritance.entity';
+import { ProfileModel } from './entity/profile.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserModel]),
+    TypeOrmModule.forFeature([UserModel, ProfileModel]),
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
@@ -36,6 +37,7 @@ import {
         SingleBaseModel,
         ComputerModel,
         AirplaneModel,
+        ProfileModel,
       ],
       synchronize: true,
     }),

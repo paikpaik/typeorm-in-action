@@ -3,10 +3,12 @@ import {
   CreateDateColumn,
   Entity,
   Generated,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   VersionColumn,
 } from 'typeorm';
+import { ProfileModel } from './profile.entity';
 
 export enum Role {
   USER = 'user',
@@ -19,18 +21,22 @@ export class UserModel {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // 제목
-  @Column({
-    type: 'varchar',
-    name: '_title',
-    length: 300,
-    nullable: true,
-    update: true,
-    select: false,
-    default: 'default value',
-    unique: false,
-  })
-  title: string;
+  // Email
+  @Column()
+  email: string;
+
+  // // 제목
+  // @Column({
+  //   type: 'varchar',
+  //   name: '_title',
+  //   length: 300,
+  //   nullable: true,
+  //   update: true,
+  //   select: false,
+  //   default: 'default value',
+  //   unique: false,
+  // })
+  // title: string;
 
   @Column({
     type: 'enum',
@@ -54,6 +60,10 @@ export class UserModel {
   @Column()
   @Generated('uuid')
   additionalId: string;
+
+  // 1:1 관계
+  @OneToOne(() => ProfileModel, (profile) => profile.user)
+  profile: ProfileModel;
 }
 /*
 #################################################
@@ -129,4 +139,17 @@ export class UserModel {
 - 기본값이 false
 - column중에서 유일무이한 값이 돼야 하는지
 - 보통 email에 넣어둠.
+*/
+/*
+#####################################################
+############### OneToOne Relationship ###############
+#####################################################
+
+@OneToOne(() => ProfileModel, (profile) => profile.user)
+- 1:1 관계임. 
+- ProfileModel과 연결되어 있고 profile.user로 불러올수 있음.
+
+@JoinColumn()
+- ProfileModel에 있는 id를 ProfileModel에서 가지고 있겠다는 의미임.
+- UserModel이나 ProfileModel 둘 중 하나에서 가지고 있어야 함.
 */
