@@ -22,11 +22,7 @@ export class AppController {
   @Get('users')
   getUsers() {
     return this.userRepository.find({
-      // 조인
-      relations: {
-        profile: true,
-        posts: true,
-      },
+      select: {},
     });
   }
 
@@ -124,3 +120,45 @@ export class AppController {
     });
   }
 }
+
+/*
+###############################################
+############### FindManyOptions ###############
+###############################################
+
+.find({ select:{} })
+- 어떤 프로퍼티를 선택할지 
+- select를 정의하지 않으면 기본적으로 모든 프로퍼티를 가져옴.
+
+.find({ select:{ 프로퍼티: true } })
+- select를 정의하면 정의된 프로퍼티들만 가져옴.
+
+.find({ where:{} })
+- 필터링할 조건을 입력함.
+- 모든 조건들은 And로 묶임.
+- 만약 조건들을 Or로 묶어서 받으려면 list로 조건을 보내야함.
+  where: [
+    {
+      id: 3,
+    },
+    {
+      version: 1,
+    }
+  ]
+
+.find({ relations:{ 관계: true } })
+- 관계 data를 가져오는 법.
+- relations을 true로 설정하는 순간 select나 where에서 
+  사용할 수 있게 됨. (join되었다고 생각하면 편함.)
+
+.find({ order:{ 프로퍼티: 'ASC' } })
+- 오름차순(ASC), 내림차순(DESC) 설정 가능함.
+- 당연히 relations 되어있는 프로퍼티도 설정 가능함.
+
+.find({ skip: 0 })
+- 처음 몇개를 제외하고 가져올지 
+
+.find({ take: 0 })
+- 처음부터 몇개만 가져올지
+- LIMIT이랑 똑같다.
+*/
