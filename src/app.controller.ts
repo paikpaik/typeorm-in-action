@@ -1,7 +1,7 @@
 import { Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Role, UserModel } from './entity/user.entity';
-import { Repository } from 'typeorm';
+import { ILike, LessThan, Repository } from 'typeorm';
 import { ProfileModel } from './entity/profile.entity';
 import { PostModel } from './entity/post.entity';
 import { TagModel } from './entity/tag.entity';
@@ -18,6 +18,110 @@ export class AppController {
     @InjectRepository(TagModel)
     private readonly tagRepository: Repository<TagModel>,
   ) {}
+
+  @Post('sample')
+  async sample() {
+    // [create]
+    // 모델에 해당되는 객체 생성 - 저장은 안함.
+    // const user1 = await this.userRepository.create({
+    //   email: 'test@test.com',
+    // });
+    // return user1;
+    //
+    // [save]
+    // 모델에 해당되는 객체 생성 - 저장까지 함.
+    // const user2 = await this.userRepository.save({
+    //   email: 'test@test.com',
+    // });
+    // return user2;
+    //
+    // [preload]
+    // 입력된 값을 기반으로 db에 있는 데이터를 불러오고
+    // 추가 입력된 값으로 db에서 가져온 값들을 대체함.
+    // 저장은 안함.
+    // const user3 = await this.userRepository.preload({
+    //   id: 101,
+    //   email: 'preload@test.com',
+    // });
+    // return user3;
+    //
+    // [delete]
+    // delete({ id: 101 })처럼 객체로 전달해도 되지만
+    // 일반적으로 id값이 사용되기 때문에 id만 전달함.
+    // await this.userRepository.delete(101);
+    // return true;
+    //
+    // [increment], [decrement]
+    // increment({조건}, 프로퍼티, 증가값)
+    // 조건에 해당하는 모든 로우에게 특정 프로퍼티 값을
+    // 특정 값 만큼 증가시킴
+    // decrement는 반대임.
+    // await this.userRepository.increment(
+    //   {
+    //     id: 1,
+    //   },
+    //   'count',
+    //   2,
+    // );
+    // return true;
+    // await this.userRepository.decrement(
+    //   {
+    //     id: 1,
+    //   },
+    //   'count',
+    //   2,
+    // );
+    // return true;
+    //
+    // [count]
+    // 조건에 맞는 프로퍼티의 수
+    // const count = await this.userRepository.count({
+    //   where: {
+    //     email: ILike('%test%'),
+    //   },
+    // });
+    // return count;
+    //
+    // [sum]
+    // 조건에 맞는 프로퍼티의 합
+    // sum('합치고 싶은 프로퍼티', 조건)
+    // const sum = await this.userRepository.sum('count', {
+    //   email: ILike('%test%'),
+    // });
+    // return sum;
+    //
+    // [average]
+    // 조건의 맞는 프로퍼티의 평균
+    // average('평균내고 싶은 프로퍼티', 조건)
+    // const average = await this.userRepository.average('count', {
+    //   id: LessThan(4),
+    // });
+    // return average;
+    //
+    // [minimum]
+    // 조건의 맞는 프로퍼티의 최소값
+    // minimum('프로퍼티', 조건)
+    // const min = await this.userRepository.minimum('count', {
+    //   id: LessThan(4),
+    // });
+    // return min;
+    //
+    //[maximum]
+    // 조건의 맞는 프로퍼티의 최대값
+    // maximum('프로퍼티', 조건)
+    // const max = await this.userRepository.maximum('count', {
+    //   id: LessThan(4),
+    // });
+    // return max;
+    //
+    // [findAndCount]
+    // 특정 갯수만 제한해서 가져옴.
+    // 제한된 값이랑 전체값도 같이 반환함.(pagination에서 활용됨.)
+    // const usersAndCount = await this.userRepository.findAndCount({
+    //   take: 3,
+    // });
+    // return usersAndCount;
+  }
 
   @Get('users')
   getUsers() {
