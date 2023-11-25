@@ -162,3 +162,45 @@ export class AppController {
 - 처음부터 몇개만 가져올지
 - LIMIT이랑 똑같다.
 */
+/*
+###################################################
+############### WhereUtilityOptions ###############
+###################################################
+
+- 기본적으로 where절의 모든 유틸리티는 typeorm에서 불러와야 함.
+
+where: { id: Not(1) }
+- 1을 제외하고 모든 data 가져오기
+
+where: { id: LessThan(30) }
+- 1부터 30미만 data만 가져오기(1 ~ 29)
+
+where: { id: LessThanOrEqual(30) }
+- 1부터 30이하 data만 가져오기(1 ~ 30)
+
+where: { id: MoreThan(30) }
+- 30초과 data 가져오기(31 ~)
+
+where: { id: MoreThanOrEqual(30) }
+- 30이상 data 가져오기(30 ~)
+
+where: { id: Equal(30) }
+- id가 30인 data만 가져오기
+
+where: { email: Like('%google%') }
+- '%word%' word가 속한 값 가져오기 ['%word', 'word%']
+- 대소문자를 구분하기 때문에 똑같아야 함.
+
+where: { email: ILike('%GOOGLE%') }
+- '%word%' word가 속한 값 가져오기 ['%word', 'word%']
+- 대소문자를 구분안하고 유사값을 가져옴. 
+
+where: { id: Between(10, 15) }
+- id가 10이상 15이하 사이값 가져오기(10 ~ 15)
+
+where: { id: In([1, 3, 5, 7, 99]) }
+- 리스트에 해당되는 값만 가져옴.
+
+where: { id: isNull() }
+- id가 null인 경우 가져오기
+*/
